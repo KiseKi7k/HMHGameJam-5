@@ -16,7 +16,8 @@ func random_item_stats():
 		var key_min = item_resource.item_stat.keys()[i] 
 		var key_max = item_resource.item_stat.keys()[i+1]
 		
-		var stat_name = key_min.split("_")[0]
+		var parts = key_min.split("_")
+		var stat_name = " ".join(parts.slice(0, parts.size() - 1)).capitalize()
 		var stat_value = round(randf_range(item_resource.item_stat.get(key_min) * tier_multiplier,
 								item_resource.item_stat.get(key_max) * tier_multiplier)
 								)

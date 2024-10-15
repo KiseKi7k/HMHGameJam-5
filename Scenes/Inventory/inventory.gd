@@ -85,6 +85,8 @@ func _on_btn_close_pressed() -> void:
 	
 	get_item_stats()
 	print(player_item_stat)
+	Utils.send_player_upgrade_data.emit(player_item_stat)
+	Utils.wave_start.emit()
 
 func get_item_stats():
 	player_item_stat = {}

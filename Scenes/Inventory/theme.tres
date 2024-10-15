@@ -1,7 +1,36 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dnf5p8ny2pgfo"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://dnf5p8ny2pgfo"]
 
-[ext_resource type="FontFile" uid="uid://cn4tdqoliv4jr" path="res://Asset/fonts/PixelOperator8.ttf" id="1_csgxg"]
+[ext_resource type="FontFile" uid="uid://cn4tdqoliv4jr" path="res://Scenes/Inventory/fonts/PixelOperator8.ttf" id="1_csgxg"]
+[ext_resource type="Texture2D" uid="uid://ddmhcjcohjhbk" path="res://Asset/GameUI.png" id="2_2xmw8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6itid"]
+atlas = ExtResource("2_2xmw8")
+region = Rect2(160, 96, 80, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_re2nd"]
+texture = SubResource("AtlasTexture_6itid")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v726l"]
+atlas = ExtResource("2_2xmw8")
+region = Rect2(256, 48, 80, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xpscd"]
+texture = SubResource("AtlasTexture_v726l")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jhq6"]
+atlas = ExtResource("2_2xmw8")
+region = Rect2(160, 48, 80, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rnlx4"]
+texture = SubResource("AtlasTexture_1jhq6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4eu8w"]
+texture = SubResource("AtlasTexture_6itid")
 
 [resource]
 Button/fonts/font = ExtResource("1_csgxg")
+Button/styles/disabled = SubResource("StyleBoxTexture_re2nd")
+Button/styles/hover = SubResource("StyleBoxTexture_xpscd")
+Button/styles/normal = SubResource("StyleBoxTexture_rnlx4")
+Button/styles/pressed = SubResource("StyleBoxTexture_4eu8w")
 Label/fonts/font = ExtResource("1_csgxg")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bdmhtpy4ww41m"]
 
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_f1vww"]
-[ext_resource type="Texture2D" uid="uid://bkg61flpk513h" path="res://Sprite/New Piskel.png" id="2_my5nw"]
+[ext_resource type="Texture2D" uid="uid://bkg61flpk513h" path="res://Asset/New Piskel.png" id="2_my5nw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bdqjg"]
 radius = 9.0

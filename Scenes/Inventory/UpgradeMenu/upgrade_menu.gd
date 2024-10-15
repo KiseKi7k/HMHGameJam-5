@@ -3,6 +3,7 @@ extends Control
 const ITEM = preload("res://Scenes/Inventory/item.tscn")
 
 func _ready() -> void:
+	Utils.wave_end.connect(_on_wave_end)
 	for upgrade_container: UpgradeContainer in $HBoxContainer.get_children():
 		upgrade_container.btn_select.pressed.connect(_on_upgrade_selected.bind(upgrade_container))
 

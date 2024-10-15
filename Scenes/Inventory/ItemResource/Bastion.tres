@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://dkapqm60wy54a"]
+
+[ext_resource type="Texture2D" uid="uid://bsl7s6ogcylxw" path="res://Scenes/Inventory/Asset/Reinforced wall.png" id="1_klpjw"]
+[ext_resource type="Script" path="res://Scenes/Inventory/ItemResource/item_resource.gd" id="2_73wlc"]
+
+[resource]
+script = ExtResource("2_73wlc")
+item_name = "Iron Fortress"
+item_id = 4
+item_stat = Dictionary[String, float]({
+"defence_max": 5.0,
+"defence_min": 1.0,
+"health_max": 20.0,
+"health_min": 10.0
+})
+item_texture = ExtResource("1_klpjw")

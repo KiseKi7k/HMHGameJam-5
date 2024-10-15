@@ -7,6 +7,7 @@
 bg_color = Color(0.485703, 0.485704, 0.485703, 1)
 
 [node name="Test" type="Node2D"]
+position = Vector2(-14, 0)
 
 [node name="Inventory" parent="." instance=ExtResource("1_7rm13")]
 unique_name_in_owner = true

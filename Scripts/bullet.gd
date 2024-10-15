@@ -3,6 +3,7 @@ extends Area2D
 var bullet_speed: float = 400  # ความเร็วของกระสุน
 var direction: Vector2 = Vector2.ZERO  # ทิศทางของกระสุน
 var damage: float
+var piece: int = 1
 
 const RANGE: float =  1000
 var travel_distance: float = 0
@@ -18,4 +19,7 @@ func _process(delta) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage"):
 		body.take_damage(damage)
-		queue_free()
+		
+		piece -= 1
+		if piece <= 0:
+			queue_free()

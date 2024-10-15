@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dm2x7ph7ejhox"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_kdj0e"]
-[ext_resource type="Texture2D" uid="uid://kwxkyjw53v63" path="res://Sprite/New Piskel (2).png" id="2_bfcmy"]
+[ext_resource type="Texture2D" uid="uid://kwxkyjw53v63" path="res://Asset/New Piskel (2).png" id="2_bfcmy"]
 [ext_resource type="Resource" uid="uid://jindtj12sppo" path="res://Scripts/enemy1.tres" id="2_g6156"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thyc0"]

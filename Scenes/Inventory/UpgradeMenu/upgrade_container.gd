@@ -24,6 +24,9 @@ func display_stats(stat_values: Dictionary) -> void:
 		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		
-		label.text = "%s +%s" %[stat, str(value)]
+		if stat in ["Defence", "Piece"]:
+			label.text = "%s +%s"  %[stat, str(value)]
+		else: 
+			label.text = "%s +%s%%"  %[stat, str(value)]
 		%StatLabelContainer.add_child(label)
 	

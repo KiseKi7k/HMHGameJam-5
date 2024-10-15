@@ -27,13 +27,16 @@ offset_right = 462.5
 offset_bottom = 315.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 40
 
 [node name="UpgradeContainer1" parent="HBoxContainer" instance=ExtResource("3_stxco")]
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="UpgradeContainer2" parent="HBoxContainer" instance=ExtResource("3_stxco")]
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="UpgradeContainer3" parent="HBoxContainer" instance=ExtResource("3_stxco")]
 layout_mode = 2
+size_flags_vertical = 0

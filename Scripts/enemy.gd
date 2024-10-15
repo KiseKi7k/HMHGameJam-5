@@ -32,6 +32,7 @@ func take_damage(damage: float) -> void:
 		die()
 
 func die() -> void:
+	Utils.enemy_die.emit()
 	queue_free()
 
 # Attack player

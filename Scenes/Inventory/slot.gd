@@ -20,6 +20,8 @@ func _ready() -> void:
 func create_item():
 	if test_item:
 		item = item_scene.instantiate()
+		item.item_resource = ItemResource.item_resoruces_list.values().pick_random()
+		item.random_item_stats()
 		put_into_slot(item)
 
 func pick_from_slot():

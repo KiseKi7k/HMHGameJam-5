@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://dqoqpphvnwurg"]
+
+[ext_resource type="Texture2D" uid="uid://csy6fijillm5p" path="res://Scenes/Inventory/Asset/Bigger Ball.png" id="1_wlgp4"]
+[ext_resource type="Script" path="res://Scenes/Inventory/ItemResource/item_resource.gd" id="2_kv12t"]
+
+[resource]
+script = ExtResource("2_kv12t")
+item_name = "Bigger Ball"
+item_id = 3
+item_stat = Dictionary[String, float]({
+"attack_max": 10.0,
+"attack_min": 5.0,
+"cannon_size_max": 10.0,
+"cannon_size_min": 5.0
+})
+item_texture = ExtResource("1_wlgp4")

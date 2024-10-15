@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://bc3xt3u5a18t7"]
+
+[ext_resource type="Texture2D" uid="uid://bt1e14jwp8jcw" path="res://Scenes/Inventory/Asset/Brighter Light.png" id="1_8d283"]
+[ext_resource type="Script" path="res://Scenes/Inventory/ItemResource/item_resource.gd" id="1_8nch7"]
+
+[resource]
+script = ExtResource("1_8nch7")
+item_name = "Brighter Light"
+item_id = 0
+item_stat = Dictionary[String, float]({
+"light_area_max": 20.0,
+"light_area_min": 10.0,
+"light_size_max": 10.0,
+"light_size_min": 5.0
+})
+item_texture = ExtResource("1_8d283")

@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpuuldt8lwc0p"]
+
+[ext_resource type="Texture2D" uid="uid://dehesjrjsimbp" path="res://Scenes/Inventory/ui.png" id="1_b8rv0"]
+[ext_resource type="Script" path="res://Scenes/Inventory/UpgradeMenu/upgrade_container.gd" id="2_i2sxw"]
+[ext_resource type="Texture2D" uid="uid://dr2c4ctdxugao" path="res://Scenes/Inventory/Asset/Armor Piercing.png" id="3_dea6g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnbjg"]
+atlas = ExtResource("1_b8rv0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v11eo"]
+bg_color = Color(0.31, 0.31, 0.31, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="UpgradeContainer" type="NinePatchRect"]
+custom_minimum_size = Vector2(275, 300)
+offset_right = 275.0
+offset_bottom = 644.0
+texture = SubResource("AtlasTexture_pnbjg")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+script = ExtResource("2_i2sxw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 49.0
+offset_right = 263.0
+offset_bottom = 575.0
+theme_override_constants/separation = 20
+
+[node name="ItemTexture" type="TextureRect" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("3_dea6g")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="ItemNameLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Armor Piecing"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="StatLabelContainer" type="VBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Stat1Label" type="Label" parent="VBoxContainer/StatLabelContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Attack +20"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Stat2Label" type="Label" parent="VBoxContainer/StatLabelContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Piece +2"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="BtnSelect" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_v11eo")
+text = "Select"

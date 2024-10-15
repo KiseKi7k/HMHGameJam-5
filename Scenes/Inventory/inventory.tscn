@@ -1,0 +1,290 @@
+[gd_scene load_steps=10 format=3 uid="uid://2qajcaynfune"]
+
+[ext_resource type="Texture2D" uid="uid://dehesjrjsimbp" path="res://Scenes/Inventory/ui.png" id="1_7lnah"]
+[ext_resource type="Theme" uid="uid://dnf5p8ny2pgfo" path="res://Scenes/Inventory/theme.tres" id="1_lfx68"]
+[ext_resource type="Script" path="res://Scenes/Inventory/inventory.gd" id="1_sj1dp"]
+[ext_resource type="PackedScene" uid="uid://b7mox5atgvt5w" path="res://Scenes/Inventory/slot.tscn" id="4_xbakx"]
+[ext_resource type="PackedScene" uid="uid://d16u2xadhx4bh" path="res://item_info_display.tscn" id="5_ykwxk"]
+[ext_resource type="Script" path="res://Scenes/Inventory/UpgradeMenu/upgrade_box.gd" id="6_x8bdh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oydh5"]
+atlas = ExtResource("1_7lnah")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ithi0"]
+bg_color = Color(0.0726, 0.66, 0.18029, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_531p5"]
+bg_color = Color(1, 0.22, 0.22, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_lfx68")
+script = ExtResource("1_sj1dp")
+
+[node name="EquipedItemSlot" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 87.0
+offset_right = 500.0
+offset_bottom = 271.0
+texture = ExtResource("1_7lnah")
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="SlotContainers" type="GridContainer" parent="EquipedItemSlot"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 18.0
+offset_right = 431.0
+offset_bottom = 166.0
+columns = 5
+
+[node name="Slot" parent="EquipedItemSlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+
+[node name="Slot2" parent="EquipedItemSlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+
+[node name="Slot3" parent="EquipedItemSlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+
+[node name="Slot4" parent="EquipedItemSlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+
+[node name="Slot5" parent="EquipedItemSlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+
+[node name="Slot6" parent="EquipedItemSlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+locked = true
+
+[node name="Slot7" parent="EquipedItemSlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+locked = true
+
+[node name="Slot8" parent="EquipedItemSlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+locked = true
+
+[node name="Slot9" parent="EquipedItemSlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+locked = true
+
+[node name="Slot10" parent="EquipedItemSlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+locked = true
+
+[node name="InventorySlot" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 20.0
+offset_top = 560.0
+offset_right = 513.0
+offset_bottom = 965.0
+texture = SubResource("AtlasTexture_oydh5")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="SlotContainers" type="GridContainer" parent="InventorySlot"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 27.0
+offset_right = 442.0
+offset_bottom = 330.0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 5
+
+[node name="Slot" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot2" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot3" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot4" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot5" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot6" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot7" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot8" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot9" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot10" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot11" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot12" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot13" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot14" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot15" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot16" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot17" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot18" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot19" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Slot20" parent="InventorySlot/SlotContainers" instance=ExtResource("4_xbakx")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="ItemInfoDisplay" parent="." instance=ExtResource("5_ykwxk")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 558.0
+offset_top = 86.0
+offset_right = 1002.0
+offset_bottom = 967.0
+
+[node name="ClickTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+
+[node name="UpgradeBox" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 22.0
+offset_top = 353.0
+offset_right = 496.0
+offset_bottom = 525.0
+texture = ExtResource("1_7lnah")
+region_rect = Rect2(0, 0, 32, 32)
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+script = ExtResource("6_x8bdh")
+
+[node name="SlotContainer" type="HBoxContainer" parent="UpgradeBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -206.0
+offset_top = -67.0
+offset_right = 206.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UpgradeSlot1" parent="UpgradeBox/SlotContainer" instance=ExtResource("4_xbakx")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="UpgradeSlot2" parent="UpgradeBox/SlotContainer" instance=ExtResource("4_xbakx")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="UpgradeSlot3" parent="UpgradeBox/SlotContainer" instance=ExtResource("4_xbakx")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="BtnUpgrade" type="Button" parent="UpgradeBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -59.0
+offset_right = 125.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_ithi0")
+text = "Upgrade"
+
+[node name="BtnClose" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_531p5")
+text = "<"
+
+[connection signal="pressed" from="UpgradeBox/BtnUpgrade" to="UpgradeBox" method="_on_btn_upgrade_pressed"]
+[connection signal="pressed" from="BtnClose" to="." method="_on_btn_close_pressed"]

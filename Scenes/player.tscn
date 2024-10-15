@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://dn6sv0sfk2208"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_uer2g"]
+[ext_resource type="Texture2D" uid="uid://cwsqukoqa02h7" path="res://Sprite/New Piskel (1).png" id="2_tldvs"]
+[ext_resource type="Texture2D" uid="uid://bkg61flpk513h" path="res://Sprite/New Piskel.png" id="2_uuyf2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_25bdc"]
+radius = 62.3699
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i6em0"]
+radius = 107.042
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_uer2g")
+
+[node name="Gun" type="Sprite2D" parent="."]
+position = Vector2(50, 0)
+rotation = 1.5708
+texture = ExtResource("2_tldvs")
+offset = Vector2(-5, 2)
+
+[node name="Pivot" type="Marker2D" parent="Gun"]
+position = Vector2(-2.09815e-06, -48)
+rotation = -1.5708
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+texture = ExtResource("2_uuyf2")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_25bdc")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_i6em0")
+debug_color = Color(0.94, 0, 0, 0.419608)
+
+[node name="AttackInterval" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="timeout" from="AttackInterval" to="." method="_on_attack_interval_timeout"]

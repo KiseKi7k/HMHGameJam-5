@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://crgg0aacl0qin"]
+
+[ext_resource type="Theme" uid="uid://dnf5p8ny2pgfo" path="res://Scenes/Inventory/theme.tres" id="1_nwtoc"]
+[ext_resource type="Script" path="res://Scenes/Inventory/UpgradeMenu/upgrade_menu.gd" id="2_6rk2d"]
+[ext_resource type="PackedScene" uid="uid://dpuuldt8lwc0p" path="res://Scenes/Inventory/UpgradeMenu/upgrade_container.tscn" id="3_stxco"]
+
+[node name="UpgradeMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_nwtoc")
+script = ExtResource("2_6rk2d")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -462.5
+offset_top = -315.5
+offset_right = 462.5
+offset_bottom = 315.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="UpgradeContainer1" parent="HBoxContainer" instance=ExtResource("3_stxco")]
+layout_mode = 2
+
+[node name="UpgradeContainer2" parent="HBoxContainer" instance=ExtResource("3_stxco")]
+layout_mode = 2
+
+[node name="UpgradeContainer3" parent="HBoxContainer" instance=ExtResource("3_stxco")]
+layout_mode = 2

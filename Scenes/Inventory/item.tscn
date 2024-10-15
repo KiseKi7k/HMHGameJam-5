@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdk5drxrycx4w"]
+
+[ext_resource type="Texture2D" uid="uid://dehesjrjsimbp" path="res://Scenes/Inventory/ui.png" id="1_8blq6"]
+[ext_resource type="Script" path="res://Scenes/Inventory/item.gd" id="1_vjrb0"]
+[ext_resource type="FontFile" uid="uid://cn4tdqoliv4jr" path="res://Scenes/Inventory/fonts/PixelOperator8.ttf" id="3_7lubh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_keh82"]
+atlas = ExtResource("1_8blq6")
+region = Rect2(0, 96, 32, 32)
+
+[node name="Item" type="Node2D"]
+z_index = 1
+script = ExtResource("1_vjrb0")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_keh82")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="TierLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 16.0
+offset_top = 26.0
+offset_right = 44.0
+offset_bottom = 42.0
+theme_override_fonts/font = ExtResource("3_7lubh")

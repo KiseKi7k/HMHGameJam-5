@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://bc1fvu5agnln6"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_omacv"]
+[ext_resource type="PackedScene" uid="uid://dn6sv0sfk2208" path="res://Scenes/player.tscn" id="2_tlu4h"]
+
+[sub_resource type="Gradient" id="Gradient_imhtm"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f8udo"]
+gradient = SubResource("Gradient_imhtm")
+
+[sub_resource type="Curve2D" id="Curve2D_woj0o"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -612, -600, 0, 0, 0, 0, 601, -604, 0, 0, 0, 0, 571, 639)
+}
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_5vpt0"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1p8y0"]
+gradient = SubResource("Gradient_5vpt0")
+fill_to = Vector2(0.0318182, 0.0181818)
+
+[sub_resource type="Gradient" id="Gradient_vocfo"]
+offsets = PackedFloat32Array(0.307692, 0.525641, 0.717949)
+colors = PackedColorArray(1, 1, 1, 1, 0.58, 0.58, 0.58, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xvhua"]
+gradient = SubResource("Gradient_vocfo")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_omacv")
+
+[node name="Player" parent="." instance=ExtResource("2_tlu4h")]
+position = Vector2(0, -1)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="PointLight2D2" type="PointLight2D" parent="Player"]
+position = Vector2(236, 2.5)
+scale = Vector2(8.375, 1.42187)
+texture = SubResource("GradientTexture2D_f8udo")
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 1.5
+autostart = true
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(0, 5)
+curve = SubResource("Curve2D_woj0o")
+
+[node name="EnemySpawnMarker" type="PathFollow2D" parent="Path2D"]
+unique_name_in_owner = true
+position = Vector2(-612, -600)
+rotation = -0.0032976
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
+
+[node name="NewPiskel(4)" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(19.9999, 11.4999)
+scale = Vector2(16.25, 17.4531)
+texture = SubResource("GradientTexture2D_1p8y0")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_xvhua")
+texture_scale = 10.0
+
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

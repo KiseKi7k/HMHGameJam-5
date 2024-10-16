@@ -7,8 +7,9 @@ extends CharacterBody2D
 const BASE_LIGHT_CONE_POSITION = 1536
 
 var base_max_health: float = 100
+var base_health_regen: float = 1
 var base_attack: float = 10
-var base_attack_speed: float = 0.2
+var base_attack_speed: float = 0.45
 var base_light_area_size: float = 1.0
 var base_light_cone_size: Vector2 = Vector2(11.25, 15)
 var base_cannon_size: float = 5.0
@@ -47,14 +48,20 @@ var max_health: float:
 	set(value):
 		max_health = value
 		%HealthBar.max_value = value
+var health_regen: float
 @export var health: float:
 	set(value):
+		if value != max_health:
+			%HealthBar.visible = true
+		else: 
+			%HealthBar.visible = false
+		
 		health = max(0, value)
 		%HealthBar.value = value
-@export var attack_speed: float = 0.2:
+@export var attack_speed: float:
 	set(value):
-		attack_speed = value
-		%AttackInterval.wait_time = value
+		attack_speed = max(0.08, value)
+		%AttackInterval.wait_time = attack_speed
 
 const BULLET_SCENE = preload("res://Scenes/bullet.tscn")
 const BULLET_EXPLOSION = preload("res://Scenes/bullet_explosion.tscn")
@@ -62,6 +69,7 @@ const BULLET_EXPLOSION = preload("res://Scenes/bullet_explosion.tscn")
 func _ready() -> void:
 	max_health = base_max_health
 	attack = base_attack
+	attack_speed = base_attack_speed
 	cannon_size = base_cannon_size
 	light_area_size = base_light_area_size
 	light_cone_size = base_light_cone_size
@@ -91,6 +99,9 @@ func create_bullet() -> Bullet:
 	return BULLET_SCENE.instantiate()
 	
 func shoot():
+	Utils.camera.shake(0.5)
+	%ShootSFX.playing = true
+	
 	var bullet = create_bullet()
 	bullet.global_position = %Gun.global_position # Set Position to gun
 	var direction = global_position.direction_to( get_global_mouse_position()) # Set direction
@@ -100,13 +111,18 @@ func shoot():
 	bullet.scale = Vector2(cannon_size, cannon_size)
 	get_node('/root/Main').add_child(bullet) # Add child to Main
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Utils.on_menu:
 		return
 	var direction = (get_global_mouse_position() - %Gun.global_position).normalized()
 	%Gun.rotation = direction.angle() + 3 *PI /2
 	
 func take_damage(damage: float) -> void:
+	if Utils.is_game_over:
+		return
+	
+	%PlayerHittedSFX.playing = true
+	Utils.camera.shake(2.5)
 	health -= max(0, damage-defence)
 	
 	%Sprite.modulate = Color(1,1,1,1.7)
@@ -117,7 +133,7 @@ func take_damage(damage: float) -> void:
 		game_over()
 
 func game_over():
-	print('game over')
+	Utils.game_over.emit()
 
 # If enemy hit it activate enemy attack
 func _on_hit_box_body_entered(body: Node2D) -> void:
@@ -136,6 +152,8 @@ func apply_upgrade(player_stats_upgrade: Dictionary):
 		match stat.to_lower():
 			"attack":
 				attack = base_attack * (1+player_stats_upgrade.get(stat)/100)
+			"attack speed":
+				attack_speed = base_attack_speed - (player_stats_upgrade.get(stat)/1000)
 			"health":
 				max_health = base_max_health * (1+player_stats_upgrade.get(stat)/100)
 			"piece":
@@ -149,3 +167,8 @@ func apply_upgrade(player_stats_upgrade: Dictionary):
 			"light size":
 				light_cone_size = base_light_cone_size * (1+player_stats_upgrade.get(stat)/100)
 				light_cone.position.y = BASE_LIGHT_CONE_POSITION * (1+player_stats_upgrade.get(stat)/100)
+			"health regen":
+				health_regen = health_regen + base_health_regen
+			
+func _on_health_regen_interval_timeout() -> void:
+	health = max(max_health, health+health_regen)

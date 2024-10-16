@@ -2,6 +2,7 @@ class_name Inventory
 extends Control
 
 var player_item_stat: Dictionary
+const MAX_SLOT: int = 20
 
 var holding_item: Node2D = null
 var last_pick_slot: InventorySlot = null
@@ -75,6 +76,12 @@ func quickput_to_inventory(item: Item) -> void:
 	slot.put_into_slot(item)
 
 func _on_btn_close_pressed() -> void:
+	if !is_inventory_space_enough():
+		%Caution.visible = true
+		await get_tree().create_timer(2.0).timeout
+		%Caution.visible = false
+		return
+	
 	visible = false
 	
 	for slot: InventorySlot in $UpgradeBox/SlotContainer.get_children():
@@ -84,7 +91,7 @@ func _on_btn_close_pressed() -> void:
 			quickput_to_inventory(item)
 	
 	get_item_stats()
-	print(player_item_stat)
+	print_debug(player_item_stat)
 	Utils.send_player_upgrade_data.emit(player_item_stat)
 	Utils.wave_start.emit()
 
@@ -96,3 +103,16 @@ func get_item_stats():
 		var stats = slot.item.stat_values
 		for stat in stats.keys():
 				player_item_stat[stat] = player_item_stat.get(stat,0) + stats.get(stat)
+
+func is_inventory_space_enough() -> bool:
+	var item_count: int
+	for inv_slot: InventorySlot in $InventorySlot/SlotContainers.get_children():
+		if is_instance_valid(inv_slot.item):
+			item_count += 1
+	for inv_slot: InventorySlot in $UpgradeBox/SlotContainer.get_children():
+		if is_instance_valid(inv_slot.item):
+			item_count += 1
+	
+	if item_count > MAX_SLOT - 1:
+		return false
+	return true

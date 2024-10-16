@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://crgg0aacl0qin"]
+[gd_scene load_steps=5 format=3 uid="uid://crgg0aacl0qin"]
 
 [ext_resource type="Theme" uid="uid://dnf5p8ny2pgfo" path="res://Scenes/Inventory/theme.tres" id="1_nwtoc"]
 [ext_resource type="Script" path="res://Scenes/Inventory/UpgradeMenu/upgrade_menu.gd" id="2_6rk2d"]
 [ext_resource type="PackedScene" uid="uid://dpuuldt8lwc0p" path="res://Scenes/Inventory/UpgradeMenu/upgrade_container.tscn" id="3_stxco"]
+[ext_resource type="AudioStream" uid="uid://dqrsxc0lvl6fe" path="res://Sound/UpgradeMenuTheme.mp3" id="4_4v62a"]
 
 [node name="UpgradeMenu" type="Control"]
 layout_mode = 3
@@ -40,3 +41,7 @@ size_flags_vertical = 0
 [node name="UpgradeContainer3" parent="HBoxContainer" instance=ExtResource("3_stxco")]
 layout_mode = 2
 size_flags_vertical = 0
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_4v62a")

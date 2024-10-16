@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cy0t0g1wr8j8h"]
+[gd_scene load_steps=12 format=3 uid="uid://cy0t0g1wr8j8h"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy/enemy.gd" id="1_xos8u"]
 [ext_resource type="Resource" uid="uid://ccgs3van66xjm" path="res://Scripts/Enemy/summoner_minion.tres" id="2_42wkt"]
 [ext_resource type="Texture2D" uid="uid://cd8a8o0ax7cg5" path="res://Asset/Enemy/summoner_minion.png" id="3_evlxv"]
+[ext_resource type="AudioStream" uid="uid://b2tovn85mlwcy" path="res://Sound/EnemyDieSFX.mp3" id="4_kyb8g"]
+[ext_resource type="AudioStream" uid="uid://bebu00mqjrl57" path="res://Sound/EnemyHitted.wav" id="5_uwbn5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vwllb"]
 atlas = ExtResource("3_evlxv")
@@ -36,6 +38,10 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_v1fu6"]
 radius = 90.0
 
+[sub_resource type="Curve" id="Curve_887wj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1375), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Minion" type="CharacterBody2D"]
 scale = Vector2(0.2, 0.2)
 collision_layer = 2
@@ -50,5 +56,30 @@ sprite_frames = SubResource("SpriteFrames_eia8x")
 shape = SubResource("CircleShape2D_v1fu6")
 
 [node name="AttackInterval" type="Timer" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+scale = Vector2(1, 1)
+emitting = false
+amount = 10
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+scale_amount_min = 4.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_887wj")
+
+[node name="EnemyDieSFX" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_kyb8g")
+
+[node name="EnemyHitted" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(1, 1)
+stream = ExtResource("5_uwbn5")
 
 [connection signal="timeout" from="AttackInterval" to="." method="_on_attack_interval_timeout"]

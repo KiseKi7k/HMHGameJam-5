@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://cckpeycvwemoh"]
+
+[ext_resource type="Script" path="res://Scenes/Inventory/ItemResource/item_resource.gd" id="1_1ypvj"]
+[ext_resource type="Texture2D" uid="uid://7uou5lhbj07i" path="res://Asset/ToolKit.png" id="1_if3q7"]
+
+[resource]
+script = ExtResource("1_1ypvj")
+item_name = "Tool Kit"
+item_id = 6
+item_stat = Dictionary[String, float]({
+"health_max": 20.0,
+"health_min": 10.0,
+"health_regen_max": 3.0,
+"health_regen_min": 1.0
+})
+item_texture = ExtResource("1_if3q7")

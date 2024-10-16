@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://binyrklbba81p"]
+[gd_scene load_steps=12 format=3 uid="uid://binyrklbba81p"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy/Boss/boss_normal.gd" id="1_35t57"]
 [ext_resource type="Resource" uid="uid://bk4clo5g0mg6l" path="res://Scripts/Enemy/boss_normal.tres" id="2_nlwyj"]
 [ext_resource type="Texture2D" uid="uid://dr2v3xxo6sn54" path="res://Asset/Enemy/Boss_normal.png" id="2_yj4fw"]
+[ext_resource type="AudioStream" uid="uid://b2tovn85mlwcy" path="res://Sound/EnemyDieSFX.mp3" id="4_hyphs"]
+[ext_resource type="AudioStream" uid="uid://bebu00mqjrl57" path="res://Sound/EnemyHitted.wav" id="5_gc26l"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_em0pd"]
 radius = 97.0
@@ -37,13 +39,17 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Curve" id="Curve_6n8lv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1375), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="BossNormal" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
 script = ExtResource("1_35t57")
 enemy_resource = ExtResource("2_nlwyj")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HitBox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_em0pd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -57,6 +63,31 @@ one_shot = true
 
 [node name="AttackInterval" type="Timer" parent="."]
 unique_name_in_owner = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+scale = Vector2(1, 1)
+emitting = false
+amount = 10
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+scale_amount_min = 4.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_6n8lv")
+
+[node name="EnemyDieSFX" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_hyphs")
+
+[node name="EnemyHitted" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(1, 1)
+stream = ExtResource("5_gc26l")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

@@ -15,7 +15,13 @@ const ENEMY_SCENE = preload("res://Scripts/Enemy/enemy.tscn")
 @export var enemy_resouces: Array[EnemyResource]
 @export var boss_list: Array[PackedScene]
 
+var start_song = preload("res://Sound/Song.mp3")
+var main_bgm = preload("res://Sound/MainBGM.mp3")
+var wave_start_sfx = preload("res://Sound/WaveStartSFX.mp3")
+
 func _ready() -> void:
+	%Song.stream = start_song
+	%Song.playing = true
 	%Camera2D.zoom = Vector2(1.8,1.8)
 	%CanvasModulate.color = Color(0,0,0)
 	
@@ -24,8 +30,15 @@ func _ready() -> void:
 	Utils.wave_start.connect(_on_wave_start)
 	Utils.wave_end.connect(_on_wave_end)
 	Utils.game_start.connect(_on_game_start)
+	Utils.game_over.connect(_on_game_over)
 
 func _on_game_start():
+	%Song.stream = main_bgm
+	%Song.playing = true
+	%Song.volume_db = -10
+	
+	%BtnPaused.visible = true
+	
 	%AnimationPlayer.play("start_game")
 	await get_tree().create_timer(0.2).timeout
 	Utils.on_menu = false
@@ -35,13 +48,23 @@ func _on_game_start():
 	%RemainingEnemyLabel.visible = true
 	%WaveLabel.visible = true
 
+func _on_game_over():
+	%BtnPaused.visible = false
+	%AnimationPlayer.play("game_over")
+	Utils.on_menu = true
+	Utils.is_game_over = true
+	
+
 func _on_wave_start():
+	%SFX.stream = wave_start_sfx
+	%SFX.playing = true
+	
 	wave += 1
 	Utils.on_menu = false
 	%AnimationPlayer.play("new_wave")
 	await %AnimationPlayer.animation_finished
 	
-	enemy_amounts = 10 + wave*1.5
+	enemy_amounts = wave + randi_range(2, 5) + wave*1.5
 	remaining_enemy = enemy_amounts
 	%EnemySpawnTimer.start()
 	
@@ -49,8 +72,9 @@ func _on_wave_start():
 		spawn_boss()
 	elif wave % 5 == 0:
 		spawn_miniboss()
-		Enemy.global_health_multiplier += 0.25
+		Enemy.global_health_multiplier += 0.4
 		Enemy.global_damage_multiplier += 0.1
+		%EnemySpawnTimer.wait_time = max(0.5, %EnemySpawnTimer.wait_time - 0.05)
 
 func _on_wave_end():
 	Utils.on_menu = true
@@ -70,8 +94,9 @@ func spawn_miniboss() -> void:
 	var miniboss = ENEMY_SCENE.instantiate() as Enemy
 	miniboss.enemy_resource = enemy_resouces.pick_random()
 	miniboss.scale *= 3
-	miniboss.health_multiplier = 2.5
-	miniboss.damage_multiplier = 1.25
+	miniboss.health_multiplier = 3
+	miniboss.damage_multiplier = 1.5
+	miniboss.shake_strength = 5
 	add_to_main(miniboss)
 
 func spawn_boss() -> void:
@@ -89,7 +114,22 @@ func add_to_main(enemy: Enemy) -> void:
 func _on_enemy_die():
 	remaining_enemy -= 1
 	if remaining_enemy <= 0:
+		Utils.camera.shake(10)
+		Engine.time_scale = 0.6
+		await get_tree().create_timer(1.3).timeout
+		Engine.time_scale = 1.0
 		Utils.wave_end.emit()
 
 func _on_enemy_spawn_timer_timeout() -> void:
 	spawn_enemy()
+
+func _on_btn_paused_pressed() -> void:
+	%PausedMenu.visible = true
+	Utils.on_menu = true
+	get_tree().paused = true
+
+
+func _on_btn_continue_pressed() -> void:
+	get_tree().paused = false
+	%PausedMenu.visible = false
+	Utils.on_menu = false

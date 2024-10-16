@@ -10,6 +10,7 @@ func _ready() -> void:
 
 func _on_wave_end():
 	visible = true
+	%Audio.playing = true
 	for upgrade_container: UpgradeContainer in $HBoxContainer.get_children():
 		var item = random_item()
 		upgrade_container.item = item

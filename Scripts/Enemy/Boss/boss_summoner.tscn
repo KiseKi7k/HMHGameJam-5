@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxdew8tylxji0"]
+[gd_scene load_steps=13 format=3 uid="uid://cxdew8tylxji0"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy/Boss/boss_summoner.gd" id="1_dp45a"]
 [ext_resource type="Resource" uid="uid://dd0wlsjfysgws" path="res://Scripts/Enemy/boss_summon.tres" id="2_27p5i"]
 [ext_resource type="Texture2D" uid="uid://c1hpb0pab1hri" path="res://Asset/Enemy/Boss_summon.png" id="2_48xf1"]
+[ext_resource type="AudioStream" uid="uid://b2tovn85mlwcy" path="res://Sound/EnemyDieSFX.mp3" id="4_ujnve"]
+[ext_resource type="AudioStream" uid="uid://bebu00mqjrl57" path="res://Sound/EnemyHitted.wav" id="5_8betd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_em0pd"]
 radius = 97.0
@@ -44,13 +46,17 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Curve" id="Curve_onlr0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1375), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="BossSummoner" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
 script = ExtResource("1_dp45a")
 enemy_resource = ExtResource("2_27p5i")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HitBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 28)
 shape = SubResource("CapsuleShape2D_em0pd")
 
@@ -65,6 +71,31 @@ one_shot = true
 
 [node name="AttackInterval" type="Timer" parent="."]
 unique_name_in_owner = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+scale = Vector2(1, 1)
+emitting = false
+amount = 10
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+scale_amount_min = 4.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_onlr0")
+
+[node name="EnemyDieSFX" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_ujnve")
+
+[node name="EnemyHitted" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(1, 1)
+stream = ExtResource("5_8betd")
 
 [connection signal="timeout" from="SummonTimer" to="." method="_on_summon_timer_timeout"]
 [connection signal="timeout" from="AttackInterval" to="." method="_on_attack_interval_timeout"]

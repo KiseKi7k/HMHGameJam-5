@@ -6,10 +6,14 @@ static var global_damage_multiplier: float = 1.0
 
 @onready var player: Player = get_node("/root/Main/Player")
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var particles: CPUParticles2D = $CPUParticles2D
 
 @export var enemy_resource: EnemyResource
 
 var is_attacking: bool = false
+var is_dead: bool = false
+
+var shake_strength: float = 2
 
 @onready var move_speed = enemy_resource.speed
 var bonus_damage: float = 1
@@ -50,20 +54,37 @@ func _physics_process(_delta: float) -> void:
 
 
 func take_damage(damage: float) -> void:
-	health -= (damage * bonus_damage)
+	if is_dead:
+		return
+	
+	Utils.camera.shake(1)
+	%EnemyHitted.playing = true
+	
+	health = max(0, health - (damage * bonus_damage))
+	# If health below 0 die
+	if health <= 0:
+		die()
+	global_position += -global_position.direction_to(player.global_position) * 5
 	
 	animated_sprite.modulate = Color(1,1,1,1.7)
 	await get_tree().create_timer(0.1).timeout
 	animated_sprite.modulate = Color(1,1,1,1)
 	
-	# If health below 0 die
-	if health <= 0:
-		die()
+	
 
 func die() -> void:
+	is_dead = true
+	Utils.camera.shake(shake_strength)
 	Utils.enemy_die.emit()
+	$AnimatedSprite2D.visible = false
+	$HitBox.set_deferred("disabled", true)
+	%EnemyDieSFX.playing = true
+	particles.emitting = true
+	await particles.finished
 	queue_free()
 
 # Attack player
 func _on_attack_interval_timeout() -> void:
+	if is_dead:
+		return
 	player.take_damage(enemy_resource.damage)

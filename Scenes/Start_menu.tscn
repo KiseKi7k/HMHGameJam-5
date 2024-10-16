@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/start_menu.gd" id="1_rlwcb"]
 [ext_resource type="Theme" uid="uid://dnf5p8ny2pgfo" path="res://Scenes/Inventory/theme.tres" id="2_xd7rf"]
-[ext_resource type="Texture2D" uid="uid://bjywo5omos353" path="res://Asset/title.png" id="3_q6nkp"]
+[ext_resource type="Texture2D" uid="uid://bjywo5omos353" path="res://Asset/Title.png" id="3_q6nkp"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -11,25 +11,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_rlwcb")
-
-[node name="StartButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -325.0
-offset_top = 72.0
-offset_right = 325.0
-offset_bottom = 272.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 0
 theme = ExtResource("2_xd7rf")
-theme_override_font_sizes/font_size = 64
-text = "Start Game"
+script = ExtResource("1_rlwcb")
 
 [node name="Title" type="TextureRect" parent="."]
 layout_mode = 1
@@ -44,5 +27,31 @@ grow_vertical = 2
 scale = Vector2(0.619588, 0.619588)
 texture = ExtResource("3_q6nkp")
 stretch_mode = 5
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.337
+anchor_top = 0.45
+anchor_right = 0.337
+anchor_bottom = 0.45
+offset_left = 12.0
+offset_top = 181.0
+offset_right = 662.0
+offset_bottom = 381.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+focus_mode = 0
+theme = ExtResource("2_xd7rf")
+theme_override_font_sizes/font_size = 64
+text = "Start Game"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_top = 977.0
+offset_right = 263.0
+offset_bottom = 1000.0
+text = "Made by Shadow Defenders Team"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

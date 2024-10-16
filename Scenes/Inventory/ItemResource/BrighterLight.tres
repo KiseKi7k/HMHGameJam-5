@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_8nch7")
 item_name = "Brighter Light"
-item_id = 0
+item_id = 2
 item_stat = Dictionary[String, float]({
 "light_area_max": 20.0,
 "light_area_min": 10.0,

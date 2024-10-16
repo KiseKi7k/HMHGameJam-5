@@ -5,6 +5,7 @@ const BOSS_ARROW = preload("res://Scripts/Enemy/Boss/boss_arrow.tscn")
 var is_shooting: bool = false
 
 func _ready() -> void:
+	shake_strength = 8
 	health = enemy_resource.health * health_multiplier * global_health_multiplier
 	damage = enemy_resource.damage * damage_multiplier * global_damage_multiplier
 	

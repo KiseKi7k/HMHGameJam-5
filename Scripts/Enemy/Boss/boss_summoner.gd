@@ -6,6 +6,7 @@ var is_summoning: bool = false
 var minions_count: int = 5
 
 func _ready() -> void:
+	shake_strength = 8
 	health = enemy_resource.health * health_multiplier * global_health_multiplier
 	damage = enemy_resource.damage * damage_multiplier * global_damage_multiplier
 	

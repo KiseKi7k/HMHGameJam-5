@@ -1,10 +1,8 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=4 format=3 uid="uid://jindtj12sppo"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://jindtj12sppo"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_resource.gd" id="1_ct6t4"]
-[ext_resource type="Texture2D" uid="uid://kwxkyjw53v63" path="res://Asset/New Piskel (2).png" id="2_aq8mc"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rpu2t"]
-atlas = ExtResource("2_aq8mc")
+[sub_resource type="SpriteFrames" id="SpriteFrames_2ex75"]
 
 [resource]
 script = ExtResource("1_ct6t4")
@@ -12,4 +10,4 @@ name = "Test"
 health = 100.0
 damage = 10.0
 speed = 200.0
-sprite = SubResource("AtlasTexture_rpu2t")
+sprite = SubResource("SpriteFrames_2ex75")

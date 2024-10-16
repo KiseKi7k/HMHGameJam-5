@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://dn6sv0sfk2208"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_uer2g"]
+[ext_resource type="Texture2D" uid="uid://ca8r1gaq3wi8y" path="res://Asset/tower.png" id="2_4gr2c"]
+[ext_resource type="Texture2D" uid="uid://c03w5riif835u" path="res://Asset/light.png" id="3_y6ju6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3xtr"]
+atlas = ExtResource("2_4gr2c")
+region = Rect2(544, 48, 800, 799)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3dku"]
+atlas = ExtResource("2_4gr2c")
+region = Rect2(1472, 128, 480, 656)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_25bdc"]
+radius = 62.3699
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i6em0"]
+radius = 107.042
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_uer2g")
+
+[node name="Base" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 1)
+texture = SubResource("AtlasTexture_o3xtr")
+
+[node name="Gun" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+rotation = 1.5708
+texture = SubResource("AtlasTexture_l3dku")
+offset = Vector2(-5, 2)
+
+[node name="Pivot" type="Marker2D" parent="Gun"]
+position = Vector2(-1.7878e-05, 313)
+rotation = -1.5708
+
+[node name="LightCone" type="PointLight2D" parent="Gun"]
+unique_name_in_owner = true
+position = Vector2(0.99997, 684)
+rotation = 3.14159
+scale = Vector2(2.20678, 4.45648)
+color = Color(1, 1, 1, 0.180392)
+texture = ExtResource("3_y6ju6")
+texture_scale = 3.2
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_25bdc")
+
+[node name="HitBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_i6em0")
+debug_color = Color(0.94, 0, 0, 0.419608)
+
+[node name="AttackInterval" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="timeout" from="AttackInterval" to="." method="_on_attack_interval_timeout"]

@@ -1,0 +1,107 @@
+[gd_scene load_steps=17 format=3 uid="uid://dm2x7ph7ejhox"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/enemy.gd" id="1_m0mgb"]
+[ext_resource type="Script" path="res://Scripts/Enemy/enemy_resource.gd" id="2_pbhlw"]
+[ext_resource type="Texture2D" uid="uid://cs3ratk2rhc35" path="res://Asset/Enemy/skeleton_normal.png" id="3_re2qr"]
+[ext_resource type="Texture2D" uid="uid://djohkb6jiufdt" path="res://Asset/Enemy/skeleton_big.png" id="4_0pyqs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m77kh"]
+atlas = ExtResource("3_re2qr")
+region = Rect2(0, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6aws"]
+atlas = ExtResource("3_re2qr")
+region = Rect2(480, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjyb6"]
+atlas = ExtResource("3_re2qr")
+region = Rect2(0, 480, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtrtj"]
+atlas = ExtResource("3_re2qr")
+region = Rect2(480, 480, 480, 480)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i6vvb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m77kh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6aws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjyb6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtrtj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Resource" id="Resource_3llqt"]
+script = ExtResource("2_pbhlw")
+name = "Normal Skeleton"
+health = 100.0
+damage = 10.0
+speed = 100.0
+sprite_frame = SubResource("SpriteFrames_i6vvb")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pbxb"]
+atlas = ExtResource("4_0pyqs")
+region = Rect2(0, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1jik"]
+atlas = ExtResource("4_0pyqs")
+region = Rect2(480, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahfob"]
+atlas = ExtResource("4_0pyqs")
+region = Rect2(0, 480, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xe78v"]
+atlas = ExtResource("4_0pyqs")
+region = Rect2(480, 480, 480, 480)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mhdrr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pbxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1jik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahfob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xe78v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4w2a4"]
+radius = 73.0
+height = 329.72
+
+[node name="Enemy" type="CharacterBody2D"]
+scale = Vector2(0.1, 0.1)
+collision_layer = 2
+script = ExtResource("1_m0mgb")
+enemy_resource = SubResource("Resource_3llqt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.734375, 0.75)
+sprite_frames = SubResource("SpriteFrames_mhdrr")
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_4w2a4")
+
+[node name="AttackInterval" type="Timer" parent="."]
+
+[connection signal="timeout" from="AttackInterval" to="." method="_on_attack_interval_timeout"]

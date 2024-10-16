@@ -4,6 +4,7 @@ signal wave_start()
 signal wave_end()
 signal send_player_upgrade_data(player_stats_upgrade: Dictionary)
 signal enemy_die()
+signal game_start()
 
 static var on_menu: bool = false
 

@@ -1,11 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://bc1fvu5agnln6"]
+[gd_scene load_steps=24 format=3 uid="uid://bc1fvu5agnln6"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_omacv"]
 [ext_resource type="PackedScene" uid="uid://dn6sv0sfk2208" path="res://Scenes/player.tscn" id="2_tlu4h"]
-[ext_resource type="Texture2D" uid="uid://c03w5riif835u" path="res://Asset/light.png" id="3_uqy5u"]
+[ext_resource type="Script" path="res://Scripts/Enemy/enemy_resource.gd" id="2_vd1db"]
+[ext_resource type="Resource" uid="uid://bbti37t0nsai0" path="res://Scripts/Enemy/skeleton_big.tres" id="3_vpkf1"]
 [ext_resource type="Theme" uid="uid://dnf5p8ny2pgfo" path="res://Scenes/Inventory/theme.tres" id="4_6qlt3"]
+[ext_resource type="Resource" uid="uid://c55h88lk4yi3p" path="res://Scripts/Enemy/skeleton_normal.tres" id="4_kygm7"]
+[ext_resource type="Script" path="res://Scripts/light.gd" id="5_5o8bi"]
 [ext_resource type="PackedScene" uid="uid://crgg0aacl0qin" path="res://Scenes/Inventory/UpgradeMenu/UpgradeMenu.tscn" id="5_dn1ki"]
+[ext_resource type="Resource" uid="uid://q4yje6ia1ohb" path="res://Scripts/Enemy/skeleton_small.tres" id="5_xv03x"]
 [ext_resource type="PackedScene" uid="uid://2qajcaynfune" path="res://Scenes/Inventory/inventory.tscn" id="6_oda6l"]
+[ext_resource type="PackedScene" uid="uid://binyrklbba81p" path="res://Scripts/Enemy/Boss/boss_normal.tscn" id="11_fx6nm"]
+[ext_resource type="PackedScene" uid="uid://bowkj2gqk2hrj" path="res://Scenes/start_menu.tscn" id="11_kmjen"]
+[ext_resource type="PackedScene" uid="uid://cxdew8tylxji0" path="res://Scripts/Enemy/Boss/boss_summoner.tscn" id="12_vs7ij"]
 
 [sub_resource type="Gradient" id="Gradient_5vpt0"]
 
@@ -13,70 +20,212 @@
 gradient = SubResource("Gradient_5vpt0")
 fill_to = Vector2(0.0318182, 0.0181818)
 
-[sub_resource type="Gradient" id="Gradient_vocfo"]
+[sub_resource type="Gradient" id="Gradient_8fqwp"]
 offsets = PackedFloat32Array(0.277108, 0.518072, 0.656627)
 colors = PackedColorArray(1, 1, 1, 1, 0.58, 0.58, 0.58, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_xvhua"]
-gradient = SubResource("Gradient_vocfo")
+gradient = SubResource("Gradient_8fqwp")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_mt38e"]
+radius = 177.311
+
 [sub_resource type="Curve2D" id="Curve2D_woj0o"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -612, -600, 0, 0, 0, 0, 601, -604, 0, 0, 0, 0, 571, 639)
+"points": PackedVector2Array(0, 0, 0, 0, -600, -600, 0, 0, 0, 0, 600, -600, 0, 0, 0, 0, 600, 600)
 }
 point_count = 3
 
+[sub_resource type="Animation" id="Animation_2d06n"]
+resource_name = "start_game"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player/Camera2D:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.8, 1.8), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasModulate:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0.8)]
+}
+
+[sub_resource type="Animation" id="Animation_ls2jh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player/Camera2D:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasModulate:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Control/WaveLabel:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(404, 31)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Control/WaveLabel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 3)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/Control/WaveLabel:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hdfx0"]
+resource_name = "new_wave"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/WaveLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(175, 500), Vector2(175, 480.5), Vector2(175, 480.5), Vector2(404, 31)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Control/WaveLabel:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(3, 3), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Control/WaveLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 3.4822),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qv17r"]
+_data = {
+&"new_wave": SubResource("Animation_hdfx0"),
+&"start_game": SubResource("Animation_2d06n"),
+&"RESET": SubResource("Animation_ls2jh")
+}
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_omacv")
+enemy_resouces = Array[ExtResource("2_vd1db")]([ExtResource("3_vpkf1"), ExtResource("4_kygm7"), ExtResource("5_xv03x")])
+boss_list = Array[PackedScene]([ExtResource("12_vs7ij"), ExtResource("11_fx6nm")])
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+unique_name_in_owner = true
 position = Vector2(0, 9.53674e-07)
-scale = Vector2(1, 1)
 color = Color(0, 0, 0, 0.8)
 
 [node name="WhiteBG" type="Sprite2D" parent="CanvasModulate"]
 show_behind_parent = true
-position = Vector2(-0.49996, 0.500008)
+position = Vector2(-2.98023e-08, -8.34465e-07)
 scale = Vector2(15.6719, 15.6719)
 texture = SubResource("GradientTexture2D_1p8y0")
 
 [node name="Player" parent="." instance=ExtResource("2_tlu4h")]
 top_level = true
 position = Vector2(0, -1)
+scale = Vector2(0.1, 0.1)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-
-[node name="LightCone" type="PointLight2D" parent="Player"]
 unique_name_in_owner = true
-position = Vector2(211, 3.8147e-06)
-rotation = 1.5708
-scale = Vector2(2.20678, 4.45648)
-color = Color(1, 1, 1, 0.180392)
-texture = ExtResource("3_uqy5u")
 
 [node name="LightArea" type="PointLight2D" parent="."]
-unique_name_in_owner = true
 texture_filter = 1
 rotation = 0.359538
 skew = 0.813324
 color = Color(0.85, 0.85, 0.85, 1)
 texture = SubResource("GradientTexture2D_xvhua")
-texture_scale = 10.0
+texture_scale = 6.2
+
+[node name="Area2D" type="Area2D" parent="LightArea"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_5o8bi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LightArea/Area2D"]
+shape = SubResource("CircleShape2D_mt38e")
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 1.5
 
 [node name="Path2D" type="Path2D" parent="."]
-position = Vector2(0, 5)
 curve = SubResource("Curve2D_woj0o")
 
 [node name="EnemySpawnMarker" type="PathFollow2D" parent="Path2D"]
 unique_name_in_owner = true
-position = Vector2(-612, -600)
-rotation = -0.0032976
+position = Vector2(-600, -600)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -91,6 +240,7 @@ theme = ExtResource("4_6qlt3")
 
 [node name="RemainingEnemyLabel" type="Label" parent="CanvasLayer/Control"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -105,17 +255,25 @@ vertical_alignment = 1
 
 [node name="WaveLabel" type="Label" parent="CanvasLayer/Control"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -96.0
-offset_top = 34.0
+offset_top = -469.0
 offset_right = 96.0
-offset_bottom = 73.0
+offset_bottom = -430.0
 grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
 theme_override_font_sizes/font_size = 32
 text = "Wave 10"
+
+[node name="StartMenu" parent="CanvasLayer/Control" instance=ExtResource("11_kmjen")]
+layout_mode = 1
 
 [node name="UpgradeMenu" parent="CanvasLayer" instance=ExtResource("5_dn1ki")]
 unique_name_in_owner = true
@@ -124,5 +282,11 @@ visible = false
 [node name="Inventory" parent="CanvasLayer" instance=ExtResource("6_oda6l")]
 unique_name_in_owner = true
 visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_qv17r")
+}
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

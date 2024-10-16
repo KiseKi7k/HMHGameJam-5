@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://binyrklbba81p"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/Boss/boss_normal.gd" id="1_35t57"]
+[ext_resource type="Resource" uid="uid://bk4clo5g0mg6l" path="res://Scripts/Enemy/boss_normal.tres" id="2_nlwyj"]
+[ext_resource type="Texture2D" uid="uid://dr2v3xxo6sn54" path="res://Asset/Enemy/Boss_normal.png" id="2_yj4fw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_em0pd"]
+radius = 97.0
+height = 332.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7f1f"]
+atlas = ExtResource("2_yj4fw")
+region = Rect2(0, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3oinw"]
+atlas = ExtResource("2_yj4fw")
+region = Rect2(480, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_didt3"]
+atlas = ExtResource("2_yj4fw")
+region = Rect2(0, 480, 480, 480)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_24r6n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7f1f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3oinw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_didt3")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 5.0
+}]
+
+[node name="BossNormal" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+collision_layer = 2
+script = ExtResource("1_35t57")
+enemy_resource = ExtResource("2_nlwyj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_em0pd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(22, 31)
+sprite_frames = SubResource("SpriteFrames_24r6n")
+animation = &"shoot"
+
+[node name="ShootTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="AttackInterval" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="AttackInterval" to="." method="_on_attack_interval_timeout"]

@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=8 format=3 uid="uid://bbti37t0nsai0"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/enemy_resource.gd" id="1_s16ol"]
+[ext_resource type="Texture2D" uid="uid://djohkb6jiufdt" path="res://Asset/Enemy/skeleton_big.png" id="2_02tdd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pbxb"]
+atlas = ExtResource("2_02tdd")
+region = Rect2(0, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1jik"]
+atlas = ExtResource("2_02tdd")
+region = Rect2(480, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahfob"]
+atlas = ExtResource("2_02tdd")
+region = Rect2(0, 480, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xe78v"]
+atlas = ExtResource("2_02tdd")
+region = Rect2(480, 480, 480, 480)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tqiud"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pbxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1jik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahfob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xe78v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_s16ol")
+name = "Skeleton Big"
+health = 150.0
+damage = 25.0
+speed = 50.0
+sprite_frame = SubResource("SpriteFrames_tqiud")

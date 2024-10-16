@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://cy0t0g1wr8j8h"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/enemy.gd" id="1_xos8u"]
+[ext_resource type="Resource" uid="uid://ccgs3van66xjm" path="res://Scripts/Enemy/summoner_minion.tres" id="2_42wkt"]
+[ext_resource type="Texture2D" uid="uid://cd8a8o0ax7cg5" path="res://Asset/Enemy/summoner_minion.png" id="3_evlxv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwllb"]
+atlas = ExtResource("3_evlxv")
+region = Rect2(0, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0b3wi"]
+atlas = ExtResource("3_evlxv")
+region = Rect2(480, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4oeo"]
+atlas = ExtResource("3_evlxv")
+region = Rect2(0, 480, 480, 480)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eia8x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwllb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0b3wi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4oeo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v1fu6"]
+radius = 90.0
+
+[node name="Minion" type="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
+collision_layer = 2
+script = ExtResource("1_xos8u")
+enemy_resource = ExtResource("2_42wkt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.734375, 0.75)
+sprite_frames = SubResource("SpriteFrames_eia8x")
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_v1fu6")
+
+[node name="AttackInterval" type="Timer" parent="."]
+
+[connection signal="timeout" from="AttackInterval" to="." method="_on_attack_interval_timeout"]

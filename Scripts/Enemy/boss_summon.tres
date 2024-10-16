@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=8 format=3 uid="uid://dd0wlsjfysgws"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/enemy_resource.gd" id="1_owivy"]
+[ext_resource type="Texture2D" uid="uid://c1hpb0pab1hri" path="res://Asset/Enemy/Boss_summon.png" id="2_cwsif"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6q52"]
+atlas = ExtResource("2_cwsif")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0p71"]
+atlas = ExtResource("2_cwsif")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0t2bm"]
+atlas = ExtResource("2_cwsif")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbyf1"]
+atlas = ExtResource("2_cwsif")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rppyo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6q52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x0p71")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0t2bm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbyf1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_owivy")
+name = "Boss Summon"
+health = 500.0
+damage = 25.0
+speed = 25.0
+sprite_frame = SubResource("SpriteFrames_rppyo")

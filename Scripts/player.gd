@@ -1,41 +1,69 @@
 class_name  Player
 extends CharacterBody2D
 
+@onready var light_cone: PointLight2D = $Sprite/Gun/LightCone
+@onready var light_area: PointLight2D = get_node('/root/Main/LightArea')
+
+const BASE_LIGHT_CONE_POSITION = 1536
+
 var base_max_health: float = 100
 var base_attack: float = 10
 var base_attack_speed: float = 0.2
-var base_light_area: float = 1.0
-var base_light_cone_size: float = 1.0
-var base_cannon_size: float = 1.0
+var base_light_area_size: float = 1.0
+var base_light_cone_size: Vector2 = Vector2(11.25, 15)
+var base_cannon_size: float = 5.0
 
-var max_health: float
+# Explosive
+var is_explosion: bool = false
+var explosion_chance: float
+
+# Flare
+var is_flare: bool = false:
+	set(value):
+		is_flare = value
+		if value:
+			%FlareLaucher.visible = true
+		else:
+			%FlareLaucher.visible = false
+var flare_size: Vector2 = Vector2(1,1)
+var flare_lifetime: float = 4.0
+var flare_damage: float = 5
+
 var attack: float
 var cannon_size: float
-var piece: int = 1
+var piece: int = 0
 var defence: int = 0
-var light_area: float:
+var light_area_size: float:
 	set(value):
-		light_area = value
-		%LightArea.scale = Vector2(value, value)
-var light_cone_size: float:
+		light_area_size = value
+		light_area.scale = Vector2(value, value)
+var light_cone_size: Vector2:
 	set(value):
 		light_cone_size = value
-		%LightCone.scale = Vector2(value, value)
+		light_cone.scale = value
+		light_cone.position
 
-
-@export var health: float = 100
+var max_health: float:
+	set(value):
+		max_health = value
+		%HealthBar.max_value = value
+@export var health: float:
+	set(value):
+		health = max(0, value)
+		%HealthBar.value = value
 @export var attack_speed: float = 0.2:
 	set(value):
 		attack_speed = value
 		%AttackInterval.wait_time = value
 
 const BULLET_SCENE = preload("res://Scenes/bullet.tscn")
+const BULLET_EXPLOSION = preload("res://Scenes/bullet_explosion.tscn")
 
 func _ready() -> void:
 	max_health = base_max_health
 	attack = base_attack
 	cannon_size = base_cannon_size
-	light_area = base_light_area
+	light_area_size = base_light_area_size
 	light_cone_size = base_light_cone_size
 	
 	
@@ -55,10 +83,16 @@ func _input(event: InputEvent) -> void:
 		%AttackInterval.start()
 	if event.is_action_released("left_click"):
 		%AttackInterval.stop()
+
+func create_bullet() -> Bullet:
+	if is_explosion:
+		if randf() < explosion_chance:
+			return BULLET_EXPLOSION.instantiate()
+	return BULLET_SCENE.instantiate()
 	
-func shoot_bullet() -> void:
-	var bullet = BULLET_SCENE.instantiate() # Create bullet instance
-	bullet.global_position = $Gun/Pivot.global_position # Set Position to gun
+func shoot():
+	var bullet = create_bullet()
+	bullet.global_position = %Gun.global_position # Set Position to gun
 	var direction = global_position.direction_to( get_global_mouse_position()) # Set direction
 	bullet.direction = direction
 	bullet.damage = attack
@@ -69,16 +103,21 @@ func shoot_bullet() -> void:
 func _process(delta: float) -> void:
 	if Utils.on_menu:
 		return
-	look_at(get_global_mouse_position())
+	var direction = (get_global_mouse_position() - %Gun.global_position).normalized()
+	%Gun.rotation = direction.angle() + 3 *PI /2
 	
 func take_damage(damage: float) -> void:
 	health -= max(0, damage-defence)
+	
+	%Sprite.modulate = Color(1,1,1,1.7)
+	await get_tree().create_timer(0.1).timeout
+	%Sprite.modulate = Color(1,1,1,1)
 	
 	if health <= 0:
 		game_over()
 
 func game_over():
-	pass
+	print('game over')
 
 # If enemy hit it activate enemy attack
 func _on_hit_box_body_entered(body: Node2D) -> void:
@@ -87,7 +126,7 @@ func _on_hit_box_body_entered(body: Node2D) -> void:
 		enemy.is_attacking = true
 
 func _on_attack_interval_timeout() -> void:
-	shoot_bullet()
+	shoot()
 
 func _on_send_player_data(player_stats_upgrade):
 	apply_upgrade(player_stats_upgrade)
@@ -106,6 +145,7 @@ func apply_upgrade(player_stats_upgrade: Dictionary):
 			"cannon size":
 				cannon_size = base_cannon_size * (1+player_stats_upgrade.get(stat)/100)
 			"light area":
-				light_area = base_light_area * (1+player_stats_upgrade.get(stat)/100)
+				light_area_size = base_light_area_size * (1+player_stats_upgrade.get(stat)/100)
 			"light size":
 				light_cone_size = base_light_cone_size * (1+player_stats_upgrade.get(stat)/100)
+				light_cone.position.y = BASE_LIGHT_CONE_POSITION * (1+player_stats_upgrade.get(stat)/100)

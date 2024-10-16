@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://clarwdpi88r7y"]
+
+[ext_resource type="Script" path="res://flare.gd" id="1_msjuq"]
+
+[sub_resource type="Gradient" id="Gradient_vocfo"]
+offsets = PackedFloat32Array(0.277108, 0.518072, 0.656627)
+colors = PackedColorArray(1, 1, 1, 1, 0.58, 0.58, 0.58, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qleuy"]
+gradient = SubResource("Gradient_vocfo")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fv7mo"]
+radius = 43.2785
+
+[node name="Flare" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_msjuq")
+
+[node name="FlareLight" type="PointLight2D" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+rotation = 0.359538
+skew = 0.813324
+color = Color(0.85, 0.85, 0.85, 1)
+texture = SubResource("GradientTexture2D_qleuy")
+texture_scale = 2.0
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 0.359538
+skew = 0.813323
+shape = SubResource("CircleShape2D_fv7mo")
+
+[node name="AttackInterval" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="AttackInterval" to="." method="_on_attack_interval_timeout"]

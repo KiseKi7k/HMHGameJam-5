@@ -1,40 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://bdmhtpy4ww41m"]
+[gd_scene load_steps=5 format=3 uid="uid://bdmhtpy4ww41m"]
 
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_f1vww"]
-[ext_resource type="Texture2D" uid="uid://bkg61flpk513h" path="res://Asset/New Piskel.png" id="2_my5nw"]
+[ext_resource type="Texture2D" uid="uid://coyqjg3v67cdx" path="res://Asset/462537357_27112846355026836_3264761179428583874_n.png" id="2_8dw0r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvohd"]
+atlas = ExtResource("2_8dw0r")
+region = Rect2(16, 16, 16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bdqjg"]
-radius = 9.0
-
-[sub_resource type="Gradient" id="Gradient_47txq"]
-offsets = PackedFloat32Array(0.544872, 0.621795)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_wabkx"]
-gradient = SubResource("Gradient_47txq")
-fill = 1
-fill_from = Vector2(0.459091, 0.527273)
-fill_to = Vector2(0.159091, 0.718182)
+radius = 0.8
 
 [node name="Bullet" type="Area2D"]
 show_behind_parent = true
+scale = Vector2(5, 5)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_f1vww")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-position = Vector2(5, -4)
-scale = Vector2(0.141667, 0.141667)
-texture = ExtResource("2_my5nw")
-offset = Vector2(-33, 29)
+scale = Vector2(0.15, 0.15)
+texture = SubResource("AtlasTexture_nvohd")
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bdqjg")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(2, -0.937499)
-scale = Vector2(0.65625, 0.654297)
-texture = SubResource("GradientTexture2D_wabkx")
-
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]

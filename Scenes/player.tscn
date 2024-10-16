@@ -1,37 +1,67 @@
-[gd_scene load_steps=6 format=3 uid="uid://dn6sv0sfk2208"]
+[gd_scene load_steps=10 format=3 uid="uid://dn6sv0sfk2208"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_uer2g"]
-[ext_resource type="Texture2D" uid="uid://cwsqukoqa02h7" path="res://Sprite/New Piskel (1).png" id="2_tldvs"]
-[ext_resource type="Texture2D" uid="uid://bkg61flpk513h" path="res://Sprite/New Piskel.png" id="2_uuyf2"]
+[ext_resource type="Texture2D" uid="uid://ca8r1gaq3wi8y" path="res://Asset/tower.png" id="2_4gr2c"]
+[ext_resource type="Texture2D" uid="uid://c03w5riif835u" path="res://Asset/light.png" id="3_y6ju6"]
+[ext_resource type="PackedScene" uid="uid://b10usn80qbd1x" path="res://Scripts/flare_laucher.tscn" id="4_03nde"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3xtr"]
+atlas = ExtResource("2_4gr2c")
+region = Rect2(1327, 384, 609, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ymvn"]
+atlas = ExtResource("2_4gr2c")
+region = Rect2(687, 414, 544, 674)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_25bdc"]
-radius = 62.3699
+radius = 504.835
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i6em0"]
-radius = 107.042
+radius = 520.317
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3j61"]
+bg_color = Color(0.259294, 0.259294, 0.259293, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_uer2g")
 
-[node name="Gun" type="Sprite2D" parent="."]
-position = Vector2(50, 0)
+[node name="Sprite" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Base" type="Sprite2D" parent="Sprite"]
+unique_name_in_owner = true
+position = Vector2(0, 1)
+texture = SubResource("AtlasTexture_o3xtr")
+
+[node name="Gun" type="Sprite2D" parent="Sprite"]
+unique_name_in_owner = true
 rotation = 1.5708
-texture = ExtResource("2_tldvs")
+texture = SubResource("AtlasTexture_7ymvn")
 offset = Vector2(-5, 2)
 
-[node name="Pivot" type="Marker2D" parent="Gun"]
-position = Vector2(-2.09815e-06, -48)
+[node name="Pivot" type="Marker2D" parent="Sprite/Gun"]
+position = Vector2(1.00001, 330)
 rotation = -1.5708
 
-[node name="Sprite" type="Sprite2D" parent="."]
-position = Vector2(0, 1)
-texture = ExtResource("2_uuyf2")
+[node name="LightCone" type="PointLight2D" parent="Sprite/Gun"]
+position = Vector2(21.0001, 1536)
+rotation = 3.14159
+scale = Vector2(11.25, 15)
+color = Color(1, 1, 1, 0.180392)
+texture = ExtResource("3_y6ju6")
+texture_scale = 3.2
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
+visible = false
 shape = SubResource("CircleShape2D_25bdc")
 
 [node name="HitBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -42,6 +72,30 @@ debug_color = Color(0.94, 0, 0, 0.419608)
 [node name="AttackInterval" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 0.2
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -484.0
+offset_top = -619.0
+offset_right = 481.0
+offset_bottom = -461.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_o3j61")
+value = 50.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="FlareLaucher" parent="." instance=ExtResource("4_03nde")]
+unique_name_in_owner = true
+visible = false
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="AttackInterval" to="." method="_on_attack_interval_timeout"]

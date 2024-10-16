@@ -1,38 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgogbx4vaix22"]
+[gd_scene load_steps=2 format=3 uid="uid://cre0r7c0gymre"]
 
 [ext_resource type="Script" path="res://Scripts/ui_start.gd" id="1_m05ah"]
 
 [node name="UI_Start" type="CanvasLayer"]
 script = ExtResource("1_m05ah")
-
-[node name="StartButton" type="Button" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -103.0
-offset_top = -133.0
-offset_right = 114.0
-offset_bottom = -70.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 40
-text = "start game"
-
-[node name="NameGame" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -291.0
-offset_top = -239.0
-offset_right = 295.0
-offset_bottom = -170.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 50
-text = "Monochrome Guardians"
-
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

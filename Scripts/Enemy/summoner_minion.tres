@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=7 format=3 uid="uid://ccgs3van66xjm"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/enemy_resource.gd" id="1_4l3c7"]
+[ext_resource type="Texture2D" uid="uid://cd8a8o0ax7cg5" path="res://Asset/Enemy/summoner_minion.png" id="2_aok12"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwllb"]
+atlas = ExtResource("2_aok12")
+region = Rect2(0, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0b3wi"]
+atlas = ExtResource("2_aok12")
+region = Rect2(480, 0, 480, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4oeo"]
+atlas = ExtResource("2_aok12")
+region = Rect2(0, 480, 480, 480)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ks3cm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwllb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0b3wi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4oeo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_4l3c7")
+name = "Minion"
+health = 50.0
+damage = 15.0
+speed = 80.0
+sprite_frame = SubResource("SpriteFrames_ks3cm")

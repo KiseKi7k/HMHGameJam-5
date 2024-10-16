@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://cxdew8tylxji0"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/Boss/boss_summoner.gd" id="1_dp45a"]
+[ext_resource type="Resource" uid="uid://dd0wlsjfysgws" path="res://Scripts/Enemy/boss_summon.tres" id="2_27p5i"]
+[ext_resource type="Texture2D" uid="uid://c1hpb0pab1hri" path="res://Asset/Enemy/Boss_summon.png" id="2_48xf1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_em0pd"]
+radius = 97.0
+height = 324.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6q52"]
+atlas = ExtResource("2_48xf1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0p71"]
+atlas = ExtResource("2_48xf1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0t2bm"]
+atlas = ExtResource("2_48xf1")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbyf1"]
+atlas = ExtResource("2_48xf1")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rppyo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6q52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x0p71")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0t2bm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbyf1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BossSummoner" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+collision_layer = 2
+script = ExtResource("1_dp45a")
+enemy_resource = ExtResource("2_27p5i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 28)
+shape = SubResource("CapsuleShape2D_em0pd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(7.62939e-06, 7.62939e-06)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_rppyo")
+
+[node name="SummonTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="AttackInterval" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="SummonTimer" to="." method="_on_summon_timer_timeout"]
+[connection signal="timeout" from="AttackInterval" to="." method="_on_attack_interval_timeout"]

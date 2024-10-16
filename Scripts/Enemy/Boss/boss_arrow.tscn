@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://byxwwggseisdu"]
+
+[ext_resource type="Texture2D" uid="uid://dr2v3xxo6sn54" path="res://Asset/Enemy/Boss_normal.png" id="1_ogr55"]
+[ext_resource type="Script" path="res://Scripts/Enemy/Boss/boss_arrow.gd" id="1_xgheh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpds1"]
+atlas = ExtResource("1_ogr55")
+region = Rect2(870, 645, 75, 75)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rf4up"]
+radius = 47.0425
+
+[node name="BossArrow" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_xgheh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_wpds1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rf4up")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

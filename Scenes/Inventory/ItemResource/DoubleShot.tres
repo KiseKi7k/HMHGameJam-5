@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://dlhea218cwg7h"]
+
+[ext_resource type="Texture2D" uid="uid://bb5wfccfy1fxo" path="res://Scenes/Inventory/Asset/Multishot.png" id="1_i4vla"]
+[ext_resource type="Script" path="res://Scenes/Inventory/ItemResource/item_resource.gd" id="1_ryymd"]
+
+[resource]
+script = ExtResource("1_ryymd")
+item_name = "Double Gun"
+item_id = 8
+item_stat = Dictionary[String, float]({
+"attack_speed_max": 15.0,
+"attack_speed_min": 8.0,
+"double_shot_chance_max": 7.0,
+"double_shot_chance_min": 2.0
+})
+item_texture = ExtResource("1_i4vla")

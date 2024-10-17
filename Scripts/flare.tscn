@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://clarwdpi88r7y"]
+[gd_scene load_steps=6 format=3 uid="uid://clarwdpi88r7y"]
 
 [ext_resource type="Script" path="res://flare.gd" id="1_msjuq"]
 
@@ -13,6 +13,10 @@ fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fv7mo"]
 radius = 43.2785
+
+[sub_resource type="Curve" id="Curve_xr71m"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.997487, 0.18448), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Flare" type="Area2D"]
 collision_layer = 0
@@ -41,6 +45,17 @@ shape = SubResource("CircleShape2D_fv7mo")
 unique_name_in_owner = true
 wait_time = 0.5
 autostart = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 10
+emission_shape = 1
+emission_sphere_radius = 0.01
+gravity = Vector2(0, -60)
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_xr71m")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="AttackInterval" to="." method="_on_attack_interval_timeout"]

@@ -22,6 +22,8 @@ Utils="*res://utils.gd"
 
 window/size/viewport_width=1000
 window/size/viewport_height=1000
+mouse_cursor/custom_image="res://Asset/CursorClick1.png"
+mouse_cursor/tooltip_position_offset=Vector2(4, 8)
 
 [input]
 

@@ -35,6 +35,7 @@ func display_stats(stat_values: Dictionary) -> void:
 		label.autowrap_mode = TextServer.AUTOWRAP_WORD
 		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		label.add_theme_font_size_override("font_size", 16)
 		
 		if stat in ["Defence", "Piece", "Health Regen"]:
 			label.text = "%s +%s"  %[stat, str(value)]

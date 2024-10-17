@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d16u2xadhx4bh"]
+[gd_scene load_steps=7 format=3 uid="uid://d16u2xadhx4bh"]
 
 [ext_resource type="Theme" uid="uid://dnf5p8ny2pgfo" path="res://Scenes/Inventory/theme.tres" id="1_qmfjk"]
 [ext_resource type="Script" path="res://Scenes/Inventory/item_info_display.gd" id="2_34sr1"]
 [ext_resource type="Texture2D" uid="uid://ddmhcjcohjhbk" path="res://Asset/GameUI.png" id="2_t2mlg"]
 [ext_resource type="Texture2D" uid="uid://dr2c4ctdxugao" path="res://Scenes/Inventory/Asset/Armor Piercing.png" id="4_uvf0m"]
+[ext_resource type="FontFile" uid="uid://dlsrnr6u4s5cy" path="res://Scenes/Inventory/fonts/PixelOperator8-Bold.ttf" id="5_cbc17"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lcgik"]
 atlas = ExtResource("2_t2mlg")
@@ -53,6 +54,7 @@ vertical_alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_cbc17")
 theme_override_font_sizes/font_size = 32
 text = "Armor Piecing"
 horizontal_alignment = 1

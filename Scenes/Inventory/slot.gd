@@ -43,8 +43,8 @@ func put_into_slot(new_item):
 	if not is_instance_valid(new_item):
 		return
 	item = new_item
-	item.position = Vector2(7, 3)
-	item.scale = Vector2(1.5, 1.5)
+	item.position = Vector2(9, 10)
+	item.scale = Vector2(1.3, 1.3)
 	var inventory_node = find_parent("Inventory")
 	if item in inventory_node.get_children():
 		inventory_node.call_deferred("remove_child", item)

@@ -2,11 +2,5 @@
 
 [ext_resource type="Script" path="res://flare_laucher.gd" id="1_3tf58"]
 
-[node name="FlareLaucher" type="Node2D"]
+[node name="FlareLauncher" type="Node2D"]
 script = ExtResource("1_3tf58")
-
-[node name="LauchInterval" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 5.0
-
-[connection signal="timeout" from="LauchInterval" to="." method="_on_lauch_interval_timeout"]

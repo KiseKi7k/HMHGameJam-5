@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://bbd1sle7bg5d"]
+
+[ext_resource type="Texture2D" uid="uid://c7b36fuvqwff2" path="res://Scenes/Inventory/Asset/Grinded Charcoal.png" id="1_8j3ac"]
+[ext_resource type="Script" path="res://Scenes/Inventory/ItemResource/item_resource.gd" id="1_sbkji"]
+
+[resource]
+script = ExtResource("1_sbkji")
+item_name = "Explosion"
+item_id = 7
+item_stat = Dictionary[String, float]({
+"explosion_chance_max": 5.0,
+"explosion_chance_min": 2.0,
+"explosion_damage_multiplier_max": 12.0,
+"explosion_damage_multiplier_min": 7.0
+})
+item_texture = ExtResource("1_8j3ac")

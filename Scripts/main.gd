@@ -53,7 +53,6 @@ func _on_game_over():
 	%AnimationPlayer.play("game_over")
 	Utils.on_menu = true
 	Utils.is_game_over = true
-	
 
 func _on_wave_start():
 	%SFX.stream = wave_start_sfx
@@ -61,6 +60,7 @@ func _on_wave_start():
 	
 	wave += 1
 	Utils.on_menu = false
+	await get_tree().create_timer(0.5).timeout
 	%AnimationPlayer.play("new_wave")
 	await %AnimationPlayer.animation_finished
 	
@@ -78,6 +78,8 @@ func _on_wave_start():
 
 func _on_wave_end():
 	Utils.on_menu = true
+	%RemainingEnemyLabel.visible = false
+	%WaveLabel.visible = false
 
 func spawn_enemy() -> void:
 	enemy_amounts -= 1
@@ -87,7 +89,6 @@ func spawn_enemy() -> void:
 	var new_enemy = ENEMY_SCENE.instantiate() as Enemy
 	new_enemy.enemy_resource = enemy_resouces.pick_random()
 	add_to_main(new_enemy)
-	
 
 func spawn_miniboss() -> void:
 	remaining_enemy += 1

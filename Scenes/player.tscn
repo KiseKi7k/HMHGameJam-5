@@ -59,11 +59,9 @@ texture = ExtResource("3_y6ju6")
 texture_scale = 3.2
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_25bdc")
 
 [node name="HitBox" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -93,9 +91,8 @@ theme_override_styles/background = SubResource("StyleBoxFlat_o3j61")
 value = 50.0
 show_percentage = false
 
-[node name="FlareLaucher" parent="." instance=ExtResource("4_03nde")]
+[node name="FlareLauncher" parent="." instance=ExtResource("4_03nde")]
 unique_name_in_owner = true
-visible = false
 
 [node name="HealthRegenInterval" type="Timer" parent="."]
 

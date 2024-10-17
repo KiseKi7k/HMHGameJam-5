@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://bvjrsroflcftp"]
+
+[ext_resource type="Script" path="res://Scenes/Inventory/ItemResource/item_resource.gd" id="1_7u510"]
+[ext_resource type="Texture2D" uid="uid://b8dbi22mmybin" path="res://Scenes/Inventory/Asset/flare.png" id="1_spb0c"]
+
+[resource]
+script = ExtResource("1_7u510")
+item_name = "Flare"
+item_id = 9
+item_stat = Dictionary[String, float]({
+"flare_launch_chance_max": 8.0,
+"flare_launch_chance_min": 2.0,
+"flare_size_max": 18.0,
+"flare_size_min": 8.0
+})
+item_texture = ExtResource("1_spb0c")

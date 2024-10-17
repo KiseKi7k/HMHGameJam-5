@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxg522oxm3jue"]
+[gd_scene load_steps=7 format=3 uid="uid://bxg522oxm3jue"]
 
 [ext_resource type="Script" path="res://Scenes/bullet_explosion.gd" id="1_4gmo1"]
 [ext_resource type="Texture2D" uid="uid://coyqjg3v67cdx" path="res://Asset/462537357_27112846355026836_3264761179428583874_n.png" id="2_1ega5"]
+[ext_resource type="AudioStream" uid="uid://bh006d8x3ihfe" path="res://Sound/ExplosionBulletSFX.wav" id="3_br2qd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jouyx"]
 atlas = ExtResource("2_1ega5")
@@ -29,6 +30,7 @@ shape = SubResource("CircleShape2D_sn4vt")
 
 [node name="ExplosionSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+visible = false
 self_modulate = Color(1, 1, 1, 0.326)
 scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_jouyx")
@@ -41,6 +43,12 @@ collision_mask = 2
 [node name="ExplosionHitbox" type="CollisionShape2D" parent="ExplosionSprite/ExplosionArea"]
 shape = SubResource("CircleShape2D_mcq0p")
 debug_color = Color(0.81126, 0.400067, 0.258495, 0.42)
+
+[node name="ExplosionSFX" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_br2qd")
+volume_db = 4.0
+pitch_scale = 0.9
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="ExplosionSprite/ExplosionArea" to="." method="_on_explosion_area_body_entered"]

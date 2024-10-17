@@ -91,7 +91,6 @@ func _on_btn_close_pressed() -> void:
 			quickput_to_inventory(item)
 	
 	get_item_stats()
-	print_debug(player_item_stat)
 	Utils.send_player_upgrade_data.emit(player_item_stat)
 	Utils.wave_start.emit()
 

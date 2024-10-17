@@ -1,10 +1,6 @@
 class_name Flare
 extends Light
 
-var flare_size: Vector2 = Vector2(1,1):
-	set(value):
-		flare_size = value
-		scale = value
 var flare_lifetime: float:
 	set(value):
 		flare_lifetime = value

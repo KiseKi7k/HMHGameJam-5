@@ -6,31 +6,43 @@ extends CharacterBody2D
 
 const BASE_LIGHT_CONE_POSITION = 1536
 
-var base_max_health: float = 100
-var base_health_regen: float = 1
-var base_attack: float = 10
-var base_attack_speed: float = 0.45
-var base_light_area_size: float = 1.0
-var base_light_cone_size: Vector2 = Vector2(11.25, 15)
-var base_cannon_size: float = 5.0
+@export var base_max_health: float = 100
+@export var base_health_regen: float = 1
+@export var base_attack: float = 10
+@export var base_attack_speed: float = 0.45
+@export var base_light_area_size: float = 1.0
+@export var base_light_cone_size: Vector2 = Vector2(11.25, 15)
+@export var base_cannon_size: float = 5.0
 
 # Explosive
 var is_explosion: bool = false
-var explosion_chance: float
+@export var explosion_chance: float = 0:
+	set(value):
+		explosion_chance = min(value, 100)
+		if explosion_chance > 0:
+			is_explosion = true
+		else: is_explosion = false
+@export var explosion_damage_multiplier: float = 1.0
 
 # Flare
-var is_flare: bool = false:
+var is_flare: bool = false
+@export var flare_launch_chance: float = 0:
 	set(value):
-		is_flare = value
-		if value:
-			%FlareLaucher.visible = true
-		else:
-			%FlareLaucher.visible = false
-var flare_size: Vector2 = Vector2(1,1)
+		flare_launch_chance = min(value, 100)
+		is_flare = true if flare_launch_chance > 0 else false
+var base_flare_size: Vector2 = Vector2(0.5,0.5)
+@export var flare_size: Vector2 = Vector2(0.5,0.5)
 var flare_lifetime: float = 4.0
 var flare_damage: float = 5
 
-var attack: float
+@export var double_shot_chance: float = 0:
+	set(value):
+		double_shot_chance = min(value, 100)
+
+var attack: float:
+	set(value):
+		attack  = value
+		flare_damage = 5 * attack/100
 var cannon_size: float
 var piece: int = 0
 var defence: int = 0
@@ -49,7 +61,7 @@ var max_health: float:
 		max_health = value
 		%HealthBar.max_value = value
 var health_regen: float
-@export var health: float:
+var health: float:
 	set(value):
 		if value != max_health:
 			%HealthBar.visible = true
@@ -58,7 +70,7 @@ var health_regen: float
 		
 		health = max(0, value)
 		%HealthBar.value = value
-@export var attack_speed: float:
+var attack_speed: float:
 	set(value):
 		attack_speed = max(0.08, value)
 		%AttackInterval.wait_time = attack_speed
@@ -74,6 +86,7 @@ func _ready() -> void:
 	light_area_size = base_light_area_size
 	light_cone_size = base_light_cone_size
 	
+	flare_size = base_flare_size
 	
 	Utils.send_player_upgrade_data.connect(_on_send_player_data)
 	Utils.wave_start.connect(_on_wave_start)
@@ -93,23 +106,43 @@ func _input(event: InputEvent) -> void:
 		%AttackInterval.stop()
 
 func create_bullet() -> Bullet:
+	var bullet: Bullet
 	if is_explosion:
-		if randf() < explosion_chance:
-			return BULLET_EXPLOSION.instantiate()
-	return BULLET_SCENE.instantiate()
+		if randf() < explosion_chance/100:
+			bullet = BULLET_EXPLOSION.instantiate() as ExplosiveBullet
+			bullet.explosion_damage_multiplier = explosion_damage_multiplier
 	
-func shoot():
-	Utils.camera.shake(0.5)
+	if !bullet:
+		bullet = BULLET_SCENE.instantiate() as Bullet
+	
+	bullet.damage = attack
+	bullet.piece = piece
+	bullet.scale = Vector2(cannon_size, cannon_size)
+	return bullet
+	
+func shoot(direction: Vector2):
+	if is_flare and randf() < flare_launch_chance/100:
+		%FlareLauncher.lauch_flare()
+	
+	Utils.camera.shake(1)
 	%ShootSFX.playing = true
 	
 	var bullet = create_bullet()
 	bullet.global_position = %Gun.global_position # Set Position to gun
-	var direction = global_position.direction_to( get_global_mouse_position()) # Set direction
 	bullet.direction = direction
-	bullet.damage = attack
-	bullet.piece = piece
-	bullet.scale = Vector2(cannon_size, cannon_size)
 	get_node('/root/Main').add_child(bullet) # Add child to Main
+
+func double_shot():
+	var direction = global_position.direction_to(get_global_mouse_position())
+	for i in range(2):
+		shoot(direction.rotated(deg_to_rad(1-2*i)))
+
+func _on_attack_interval_timeout() -> void:
+	var direction = global_position.direction_to(get_global_mouse_position())
+	if randf() < double_shot_chance/100:
+		double_shot()
+	else:
+		shoot(direction)
 
 func _process(_delta: float) -> void:
 	if Utils.on_menu:
@@ -141,9 +174,6 @@ func _on_hit_box_body_entered(body: Node2D) -> void:
 		var enemy: Enemy = body
 		enemy.is_attacking = true
 
-func _on_attack_interval_timeout() -> void:
-	shoot()
-
 func _on_send_player_data(player_stats_upgrade):
 	apply_upgrade(player_stats_upgrade)
 
@@ -169,6 +199,16 @@ func apply_upgrade(player_stats_upgrade: Dictionary):
 				light_cone.position.y = BASE_LIGHT_CONE_POSITION * (1+player_stats_upgrade.get(stat)/100)
 			"health regen":
 				health_regen = health_regen + base_health_regen
+			"explosion chance":
+				explosion_chance = player_stats_upgrade.get(stat)
+			"explosion damage multiplier":
+				explosion_damage_multiplier = 1 + player_stats_upgrade.get(stat)/100
+			"double shot chance":
+				double_shot_chance = player_stats_upgrade.get(stat)
+			"flare size": 
+				flare_size = base_flare_size *  (1 +player_stats_upgrade.get(stat)/100)
+			"flare launch chance":
+				flare_launch_chance = player_stats_upgrade.get(stat)
 			
 func _on_health_regen_interval_timeout() -> void:
 	health = max(max_health, health+health_regen)

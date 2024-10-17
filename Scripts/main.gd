@@ -41,7 +41,6 @@ func _on_game_start():
 	%BtnPaused.visible = true
 	
 	%AnimationPlayer.play("start_game")
-	await get_tree().create_timer(0.8).timeout
 	Utils.on_menu = false
 	await get_tree().create_timer(5.0).timeout
 	Utils.wave_start.emit()
@@ -135,3 +134,8 @@ func _on_btn_continue_pressed() -> void:
 	get_tree().paused = false
 	%PausedMenu.visible = false
 	Utils.on_menu = false
+
+
+func _on_quit_button_pressed() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()

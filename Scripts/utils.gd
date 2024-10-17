@@ -18,6 +18,7 @@ var on_menu: bool = false:
 		else:
 			Input.set_custom_mouse_cursor(CURSOR_AIM, Input.CURSOR_ARROW, Vector2(0,0))
 var is_game_over: bool = false
+var on_fullscreen: bool = false
 
 var camera: MainCamera
 

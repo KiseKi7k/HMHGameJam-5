@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bowkj2gqk2hrj"]
+[gd_scene load_steps=5 format=3 uid="uid://bowkj2gqk2hrj"]
 
 [ext_resource type="Script" path="res://Scripts/start_menu.gd" id="1_rlwcb"]
 [ext_resource type="Theme" uid="uid://dnf5p8ny2pgfo" path="res://Scenes/Inventory/theme.tres" id="2_xd7rf"]
 [ext_resource type="Texture2D" uid="uid://bjywo5omos353" path="res://Asset/Title.png" id="3_q6nkp"]
+[ext_resource type="FontFile" uid="uid://cn4tdqoliv4jr" path="res://Scenes/Inventory/fonts/PixelOperator8.ttf" id="4_m7x11"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -11,7 +12,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_xd7rf")
 script = ExtResource("1_rlwcb")
 
 [node name="Title" type="TextureRect" parent="."]
@@ -28,24 +28,53 @@ scale = Vector2(0.619588, 0.619588)
 texture = ExtResource("3_q6nkp")
 stretch_mode = 5
 
-[node name="StartButton" type="Button" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.337
-anchor_top = 0.45
-anchor_right = 0.337
-anchor_bottom = 0.45
-offset_left = 12.0
-offset_top = 181.0
-offset_right = 662.0
-offset_bottom = 381.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = 146.0
+offset_right = 1500.0
+offset_bottom = 712.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
+theme_override_constants/separation = 50
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(650, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 focus_mode = 0
 theme = ExtResource("2_xd7rf")
 theme_override_font_sizes/font_size = 64
 text = "Start Game"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(450, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+focus_mode = 0
+theme = ExtResource("2_xd7rf")
+theme_override_font_sizes/font_size = 64
+text = "Quit"
+
+[node name="FullscreenBox" type="CheckBox" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+focus_mode = 0
+theme_override_fonts/font = ExtResource("4_m7x11")
+theme_override_font_sizes/font_size = 32
+text = "Fullscreen"
+alignment = 1
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -54,4 +83,6 @@ offset_right = 263.0
 offset_bottom = 1000.0
 text = "Made by Shadow Defenders Team"
 
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="toggled" from="VBoxContainer/FullscreenBox" to="." method="_on_fullscreen_box_toggled"]

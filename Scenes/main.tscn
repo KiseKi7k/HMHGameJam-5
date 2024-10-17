@@ -60,20 +60,32 @@ texture = ExtResource("12_ym2e5")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5k32k"]
 texture = ExtResource("12_ym2e5")
 
-[sub_resource type="Animation" id="Animation_7mqlk"]
-resource_name = "game_over"
+[sub_resource type="Animation" id="Animation_2d06n"]
+resource_name = "start_game"
 length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/GameOver:position")
+tracks/0/path = NodePath("Player/Camera2D:zoom")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, -1000), Vector2(0, 0)]
+"values": [Vector2(1.8, 1.8), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasModulate:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0.7)]
 }
 
 [sub_resource type="Animation" id="Animation_hdfx0"]
@@ -152,32 +164,20 @@ tracks/5/keys = {
 "values": [Vector2(0, 70)]
 }
 
-[sub_resource type="Animation" id="Animation_2d06n"]
-resource_name = "start_game"
+[sub_resource type="Animation" id="Animation_7mqlk"]
+resource_name = "game_over"
 length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Player/Camera2D:zoom")
+tracks/0/path = NodePath("CanvasLayer/GameOver:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1.8, 1.8), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasModulate:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0.7)]
+"values": [Vector2(0, -1000), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ls2jh"]

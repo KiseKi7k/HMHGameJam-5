@@ -10,9 +10,10 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
+config/name="Monochrome Guardian"
 run/main_scene="res://Scenes/main.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+config/icon="res://Asset/game-icon.png"
 
 [autoload]
 

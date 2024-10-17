@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://dnf5p8ny2pgfo" path="res://Scenes/Inventory/theme.tres" id="1_lfx68"]
 [ext_resource type="Script" path="res://Scenes/Inventory/inventory.gd" id="1_sj1dp"]
 [ext_resource type="PackedScene" uid="uid://b7mox5atgvt5w" path="res://Scenes/Inventory/slot.tscn" id="4_xbakx"]
-[ext_resource type="PackedScene" uid="uid://d16u2xadhx4bh" path="res://item_info_display.tscn" id="5_ykwxk"]
+[ext_resource type="PackedScene" uid="uid://d16u2xadhx4bh" path="res://Scripts/item_info_display.tscn" id="5_ykwxk"]
 [ext_resource type="Texture2D" uid="uid://ddmhcjcohjhbk" path="res://Asset/GameUI.png" id="6_3osmu"]
 [ext_resource type="Script" path="res://Scenes/Inventory/UpgradeMenu/upgrade_box.gd" id="6_x8bdh"]
 

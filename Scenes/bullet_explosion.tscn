@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxg522oxm3jue"]
+[gd_scene load_steps=8 format=3 uid="uid://bxg522oxm3jue"]
 
 [ext_resource type="Script" path="res://Scenes/bullet_explosion.gd" id="1_4gmo1"]
 [ext_resource type="Texture2D" uid="uid://coyqjg3v67cdx" path="res://Asset/462537357_27112846355026836_3264761179428583874_n.png" id="2_1ega5"]
@@ -13,6 +13,10 @@ radius = 0.8
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mcq0p"]
 radius = 5.33333
+
+[sub_resource type="Curve" id="Curve_g6hd1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1375), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Bullet" type="Area2D"]
 show_behind_parent = true
@@ -31,7 +35,7 @@ shape = SubResource("CircleShape2D_sn4vt")
 [node name="ExplosionSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 visible = false
-self_modulate = Color(1, 1, 1, 0.326)
+self_modulate = Color(1, 1, 1, 0.8)
 scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_jouyx")
 
@@ -49,6 +53,21 @@ unique_name_in_owner = true
 stream = ExtResource("3_br2qd")
 volume_db = 4.0
 pitch_scale = 0.9
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 10
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+scale_amount_min = 4.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_g6hd1")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="ExplosionSprite/ExplosionArea" to="." method="_on_explosion_area_body_entered"]

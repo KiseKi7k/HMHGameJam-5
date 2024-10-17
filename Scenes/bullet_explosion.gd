@@ -22,7 +22,8 @@ func explode():
 	%ExplosionSprite.visible = true
 	%ExplosionArea.visible = true
 	
-	await get_tree().create_timer(0.3).timeout
+	$CPUParticles2D.emitting = true
+	await $CPUParticles2D.finished
 	queue_free()
 
 func _on_body_entered(body: Node2D) -> void:

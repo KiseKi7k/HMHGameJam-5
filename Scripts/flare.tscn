@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://clarwdpi88r7y"]
 
-[ext_resource type="Script" path="res://flare.gd" id="1_msjuq"]
+[ext_resource type="Script" path="res://Scripts/flare.gd" id="1_msjuq"]
 
 [sub_resource type="Gradient" id="Gradient_vocfo"]
 offsets = PackedFloat32Array(0.277108, 0.518072, 0.656627)

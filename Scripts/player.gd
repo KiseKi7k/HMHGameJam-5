@@ -85,6 +85,7 @@ func _ready() -> void:
 	cannon_size = base_cannon_size
 	light_area_size = base_light_area_size
 	light_cone_size = base_light_cone_size
+	health_regen = base_health_regen
 	
 	flare_size = base_flare_size
 	
@@ -211,4 +212,5 @@ func apply_upgrade(player_stats_upgrade: Dictionary):
 				flare_launch_chance = player_stats_upgrade.get(stat)
 			
 func _on_health_regen_interval_timeout() -> void:
-	health = max(max_health, health+health_regen)
+	if !Utils.on_menu:
+		health = max(max_health, health+health_regen)

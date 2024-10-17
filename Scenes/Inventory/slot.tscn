@@ -5,7 +5,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_50v1w"]
 atlas = ExtResource("1_risaa")
-region = Rect2(416, 224, 64, 64)
+region = Rect2(256, 224, 64, 64)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nasad"]
 texture = SubResource("AtlasTexture_50v1w")

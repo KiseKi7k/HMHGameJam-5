@@ -1,12 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdk5drxrycx4w"]
+[gd_scene load_steps=4 format=3 uid="uid://cdk5drxrycx4w"]
 
-[ext_resource type="Texture2D" uid="uid://dehesjrjsimbp" path="res://Scenes/Inventory/ui.png" id="1_8blq6"]
 [ext_resource type="Script" path="res://Scenes/Inventory/item.gd" id="1_vjrb0"]
+[ext_resource type="Texture2D" uid="uid://dr2c4ctdxugao" path="res://Scenes/Inventory/Asset/Armor Piercing.png" id="2_3imaj"]
 [ext_resource type="FontFile" uid="uid://cn4tdqoliv4jr" path="res://Scenes/Inventory/fonts/PixelOperator8.ttf" id="3_7lubh"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_keh82"]
-atlas = ExtResource("1_8blq6")
-region = Rect2(0, 96, 32, 32)
 
 [node name="Item" type="Node2D"]
 z_index = 1
@@ -16,7 +12,7 @@ script = ExtResource("1_vjrb0")
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
-texture = SubResource("AtlasTexture_keh82")
+texture = ExtResource("2_3imaj")
 expand_mode = 4
 stretch_mode = 5
 

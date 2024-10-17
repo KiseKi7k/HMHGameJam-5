@@ -33,6 +33,7 @@ func _ready() -> void:
 	Utils.game_over.connect(_on_game_over)
 
 func _on_game_start():
+	Utils.is_game_over = false
 	%Song.stream = main_bgm
 	%Song.playing = true
 	%Song.volume_db = -10
@@ -40,7 +41,7 @@ func _on_game_start():
 	%BtnPaused.visible = true
 	
 	%AnimationPlayer.play("start_game")
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.8).timeout
 	Utils.on_menu = false
 	await get_tree().create_timer(5.0).timeout
 	Utils.wave_start.emit()

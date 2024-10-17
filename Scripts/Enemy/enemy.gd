@@ -78,6 +78,7 @@ func die() -> void:
 	Utils.enemy_die.emit()
 	$AnimatedSprite2D.visible = false
 	$HitBox.set_deferred("disabled", true)
+	%EnemyHitted.stop()
 	%EnemyDieSFX.playing = true
 	particles.emitting = true
 	await particles.finished

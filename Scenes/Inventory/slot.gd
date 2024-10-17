@@ -1,11 +1,6 @@
 class_name InventorySlot
 extends Panel
 
-const NORMAL_REGION = Rect2i(256, 224, 64, 64)
-const HOVER_REGION = Rect2i(416, 224, 64, 64)
-
-@onready var atlas: AtlasTexture = get_theme_stylebox("panel").texture
-
 @export var test_item: bool = false
 var item_scene: PackedScene = preload("res://Scenes/Inventory/item.tscn")
 var item: Item = null:
@@ -20,8 +15,6 @@ var item: Item = null:
 signal item_added(item)
 
 func _ready() -> void:
-	atlas.region = NORMAL_REGION
-	
 	create_item()
 
 func create_item():

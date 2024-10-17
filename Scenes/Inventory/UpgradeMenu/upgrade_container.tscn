@@ -52,6 +52,7 @@ theme_override_constants/margin_bottom = 20
 [node name="StatLabelContainer" type="VBoxContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="Stat1Label" type="Label" parent="VBoxContainer/StatLabelContainer"]
 custom_minimum_size = Vector2(32, 32)

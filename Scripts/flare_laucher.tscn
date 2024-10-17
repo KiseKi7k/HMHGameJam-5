@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b10usn80qbd1x"]
 
-[ext_resource type="Script" path="res://flare_laucher.gd" id="1_3tf58"]
+[ext_resource type="Script" path="res://Scripts/flare_laucher.gd" id="1_3tf58"]
 
 [node name="FlareLauncher" type="Node2D"]
 script = ExtResource("1_3tf58")
